@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nei Venera | Barbearia em Joinville</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* NOVA PALETA DE CORES: Dourado */
+            --gold: #d4af37; 
+            --gold-light: #f1d592;
+            --gold-dark: #aa8c2c;
+            --black: #0F0F0F;
+            --gray: #1A1A1A;
+            --white: #ffffff;
+            --dark-gray: #333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--black); 
+            color: var(--white); 
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed; top: 0; width: 100%; padding: 15px 10%;
+            background: rgba(15, 15, 15, 0.95); backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--white); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+
+        /* WHATSAPP FLUTUANTE */
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px; background-color: #25d366;
+            color: white; width: 60px; height: 60px; border-radius: 50px;
+            display: flex; align-items: center; justify-content: center; font-size: 30px;
+            box-shadow: 2px 2px 15px rgba(0,0,0,0.4); z-index: 999; animation: pulseZap 2s infinite;
+        }
+        @keyframes pulseZap { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        /* HERO */
+        .hero { 
+            height: 100vh; background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url(https://i.postimg.cc/V5QFBJr8/fundo-guilherme-dos-santos.jpg); 
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+
+        .logo-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; }
+        .logo-main-text { font-family: 'Oswald', sans-serif; font-size: 5rem; color: var(--gold); letter-spacing: 8px; line-height: 1.1; text-transform: uppercase; font-weight: 700; margin-bottom: 5px; text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+        .logo-separator { width: 250px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 15px 0; }
+        .logo-footer-text { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; letter-spacing: 12px; color: var(--gold); font-weight: bold; text-transform: uppercase; }
+
+        .btn-main { background: var(--gold); color: black; padding: 18px 40px; text-decoration: none; font-weight: bold; border-radius: 3px; text-transform: uppercase; transition: 0.4s; border: 1px solid var(--gold-dark); }
+        .btn-main:hover { background: var(--gold-light); transform: translateY(-5px); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+
+        /* SEÇÕES GERAIS */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .about { padding: 100px 10%; background: #050505; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+        .about-content h2 { font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; text-transform: uppercase; font-family: 'Oswald', sans-serif; border-left: 4px solid var(--gold); padding-left: 15px; }
+        .about-content p { line-height: 1.8; color: #999; margin-bottom: 20px; }
+
+        .team { padding: 100px 10%; background: var(--black); text-align: center; }
+        .team h2 { font-size: 2.5rem; color: var(--gold); margin-bottom: 50px; text-transform: uppercase; font-family: 'Oswald', sans-serif; }
+        .team-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        
+        .bubble-img { width: 180px; height: 180px; border-radius: 50%; border: 3px solid var(--dark-gray); overflow: hidden; margin-bottom: 15px; transition: 0.4s; filter: grayscale(100%) sepia(100%) hue-rotate(10deg) saturate(200%); }
+        .barber-bubble:hover .bubble-img { border-color: var(--gold); transform: scale(1.05); filter: grayscale(0%) sepia(0%) hue-rotate(0deg) saturate(100%); }
+        .bubble-img img { width: 100%; height: 100%; object-fit: cover; }
+        .barber-bubble h3 { color: var(--white); }
+
+        .services { padding: 100px 10%; background: #050505; text-align: center; }
+        .services h2 { font-size: 2.5rem; color: var(--gold); margin-bottom: 50px; text-transform: uppercase; font-family: 'Oswald', sans-serif; }
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .service-card { background: var(--gray); padding: 40px; border-radius: 5px; border: 1px solid #222; transition: 0.4s; }
+        .service-card:hover { border-color: var(--gold); background: #222; }
+        .service-card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; }
+        .price { font-size: 1.5rem; color: var(--gold); font-weight: bold; display: block; margin-top: 15px; }
+        .service-card h3 { color: var(--white); }
+
+        .location { padding: 100px 10%; background: #050505; text-align: center; }
+        .location h2 { font-size: 2.5rem; color: var(--gold); margin-bottom: 50px; text-transform: uppercase; font-family: 'Oswald', sans-serif; }
+        .map-container { width: 100%; height: 450px; border-radius: 5px; overflow: hidden; border: 1px solid var(--gold-dark); }
+        .map-container iframe { width: 100%; height: 100%; border: 0; filter: grayscale(1) invert(0.92) sepia(1) hue-rotate(10deg) saturate(150%); }
+
+        .booking { padding: 100px 10%; background: var(--black); }
+        form { max-width: 550px; margin: 0 auto; background: var(--gray); padding: 40px; border-radius: 5px; border-top: 3px solid var(--gold); }
+        input, select { width: 100%; padding: 14px; background: #111; border: 1px solid #333; color: white; border-radius: 3px; margin-bottom: 20px; }
+        input:focus, select:focus { border-color: var(--gold); outline: none; }
+        .btn-submit { width: 100%; background: #25d366; color: white; padding: 16px; border: none; font-weight: bold; cursor: pointer; border-radius: 3px; text-transform: uppercase; }
+
+        footer { padding: 50px; background: #000; text-align: center; color: #555; border-top: 1px solid #111; }
+        footer b { color: var(--gold); }
+
+        @media (max-width: 768px) { 
+            .nav-links { display: none; } 
+            .logo-main-text { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div style="font-family: 'Oswald', sans-serif; color: var(--gold); font-size: 1.1rem; letter-spacing: 2px;">NEI VENERA</div>
+        <ul class="nav-links">
+            <li><a href="#">Início</a></li>
+            <li><a href="#sobre">Quem Somos</a></li>
+            <li><a href="#equipe">Equipe</a></li>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#agendamento">Agendar</a></li>
+            <li><a href="#onde-estamos">Localização</a></li>
+        </ul>
+    </nav>
+
+    <a href="https://wa.me/5547999139111" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <header class="hero">
+        <div class="hero-content">
+            <div class="logo-wrapper animate__animated animate__fadeInDown">
+                <h1 class="logo-main-text">NEI VENERA</h1>
+                <div class="logo-separator"></div>
+                <div class="logo-footer-text">BARBEARIA</div>
+            </div>
+            <p class="animate__animated animate__fadeInUp" style="letter-spacing: 4px; margin-bottom: 30px; font-weight: 400; color: var(--gold-light);">EXCELÊNCIA EM CADA CORTE</p>
+            <a href="#agendamento" class="btn-main animate__animated animate__pulse animate__infinite">Agendar agora</a>
+        </div>
+    </header>
+
+    <section id="sobre" class="about reveal">
+        <div class="about-content">
+            <h2>Quem Somos</h2>
+            <p>A <strong>Barbearia Nei Venera</strong> é o destino em Joinville para o homem que valoriza a tradição aliada à sofisticação moderna.</p>
+            <p>Nossa missão é entregar uma experiência única, onde cada detalhe é planejado para realçar sua melhor versão com o acabamento **Gold**.</p>
+        </div>
+        <div style="flex: 1; min-width: 300px; border-radius: 5px; overflow: hidden; border: 1px solid var(--gold-dark);">
+            <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1000&auto=format&fit=crop" style="width: 100%; display: block; filter: grayscale(100%) contrast(1.1) sepia(100%) hue-rotate(10deg) saturate(150%);" alt="Barbearia Nei Venera">
+        </div>
+    </section>
+
+    <section id="equipe" class="team reveal">
+        <h2>Especialistas Gold</h2>
+        <div class="team-grid">
+            <div class="barber-bubble">
+                <div class="bubble-img"><img src="https://i.post1img.cc/2yw4v0Dz/guilherme.jpg" alt="Nei Venera"></div>
+                <h3>Nei Venera</h3>
+            </div>
+            <div class="barber-bubble">
+                <div class="bubble-img"><img src="https://i.post1img.cc/dtsRvc2V/vini.jpg" alt="Viny"></div>
+                <h3>Viny</h3>
+            </div>
+            <div class="barber-bubble">
+                <div class="bubble-img"><img src="https://i.post1img.cc/QNkgRdTs/patrick.jpg" alt="Patrick"></div>
+                <h3>Patrick</h3>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicos" class="services reveal">
+        <h2>Serviços & Investimento</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <i class="fas fa-cut"></i>
+                <h3>Corte Signature</h3>
+                <span class="price">R$ 50,00</span>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-razor"></i>
+                <h3>Barba Platinum</h3>
+                <span class="price">R$ 40,00</span>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-certificate"></i>
+                <h3>Combo Gold</h3>
+                <span class="price">R$ 80,00</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="onde-estamos" class="location reveal">
+        <h2>Localização</h2>
+        <p style="margin-bottom: 30px; color: #777;">Rua Santa Catarina, Joinville - SC</p>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14300.00000000000!2d-48.84!3d-26.30!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94deb0!2zUnVhIFNhbnRhIENhdGFyaW5hLCBKb2ludmlsbGUgLSBTQw!5e0!3m2!1spt-BR!2sbr!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <section id="agendamento" class="booking reveal">
+        <h2 style="text-align: center; color: var(--gold); margin-bottom: 40px; font-size: 2.5rem; font-family: 'Oswald', sans-serif;">SOLICITAR HORÁRIO</h2>
+        <form id="formAgendamento">
+            <input type="text" id="nome" placeholder="Nome completo" required>
+            <select id="servico">
+                <option value="Corte Signature">Corte Signature</option>
+                <option value="Barba Platinum">Barba Platinum</option>
+                <option value="Combo Gold">Combo Gold</option>
+            </select>
+            <input type="datetime-local" id="dataHora" required>
+            <button type="submit" class="btn-submit">Verificar disponibilidade</button>
+        </form>
+    </section>
+
+    <footer><p>© 2026 <b>Nei Venera Barbearia</b> - Estilo Gold</p></footer>
+
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 150) { reveals[i].classList.add("active"); }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        document.getElementById('formAgendamento').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fone = "5547999139111";
+            const msg = `*BARBEARIA NEI VENERA*%0A*Novo Agendamento Gold*%0A*Cliente:* ${document.getElementById('nome').value}%0A*Serviço:* ${document.getElementById('servico').value}`;
+            window.open(`https://wa.me/${fone}?text=${msg}`, '_blank');
+        });
+    </script>
+</body>
+</html>
